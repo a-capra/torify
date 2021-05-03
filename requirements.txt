@@ -1,0 +1,7 @@
+cryptography
+requests
+requests[socks]
+requests[security]
+pysocks
+stem
+fake-useragent

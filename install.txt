@@ -1,0 +1,27 @@
+sudo apt install tor
+
+# test tor installation
+curl --socks5 localhost:9050 --socks5-hostname localhost:9050 -s https://check.torproject.org/ | cat | grep -m 1 Congratulations | xargs
+# Congratulations. This browser is configured to use Tor.
+
+# /etc/tor/torrc
+#
+# Enable Control Port
+ControlPort 9051
+#If set, Tor will accept connections on this port and allow those connections to control the Tor process using the Tor Control Protocol (described in control-spec.txt in torspec). Note: unless you also specify one or more of HashedControlPassword or CookieAuthentication, setting this option will cause Tor to allow any process on the local host to control it. (Setting both authentication methods means either method is sufficient to authenticate to Tor.) This option is required for many Tor controllers; most use the value of 9051. If a unix domain socket is used, you may quote the path using standard C escape sequences. You can specify this directive multiple times, to bind to multiple address/port pairs. Set it to "auto" to have Tor pick a port for you. (Default: 0)
+#[https://2019.www.torproject.org/docs/tor-manual.html.en#ControlPort]
+# set
+CookieAuthentication 0
+#
+# OR keep 
+CookieAuthentication 0
+# and generate new autheticantion password
+tor --hash-password "passwordhere"
+## such as: tor4me.p
+# returns:
+HashedControlPassword 16:9A3006103A7921D260A1B9BAE7322F3BF715B88740AB70F6BD95423E40
+
+
+# restart tor service
+sudo service tor restart
+
